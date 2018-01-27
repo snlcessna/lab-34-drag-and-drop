@@ -19,6 +19,9 @@ export const update = (expense) => ({
 export const destroy = (expense) => ({
   type: 'EXPENSE_DESTROY',
   payload: expense,
+});
+
+export const drag = (payload) => ({
+  type: 'EXPENSE_DRAG',
+  payload,
 })
-
-

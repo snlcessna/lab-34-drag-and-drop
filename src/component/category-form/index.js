@@ -12,6 +12,7 @@ class CategoryForm extends React.Component{
     this.state = this.props.category || emptyState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    console.log(this.state);
   }
 
   handleChange(e){
@@ -21,7 +22,7 @@ class CategoryForm extends React.Component{
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.onComplete(this.state);
+    (e.target.id === 'createCategory') ? this.props.categoryCreate(this.state) : this.props.categoryUpdate(this.state);
     this.setState(emptyState);
   };
 
@@ -29,16 +30,15 @@ class CategoryForm extends React.Component{
     if(newProps.category)
       this.setState(newProps.category);
   };
-  
+
   render(){
     let button = this.props.category ? 'update category' : 'create category';
-    
+    let buttonID = (button === 'update category') ? 'updateCategory' : 'createCategory';
 
     return(
       <div className='category-form'>
-        <form
-          onSubmit={this.handleSubmit}>
-  
+        <form>
+
           <input
             className='type-input'
             type='text'
@@ -55,9 +55,9 @@ class CategoryForm extends React.Component{
             value={this.state.budget}
             onChange={this.handleChange}
           />
-  
-          <button type='submit'> {button} </button>
-        
+
+          <button onClick={this.handleSubmit} id={buttonID} type='submit'> {button} </button>
+
         </form>
       </div>
     )
